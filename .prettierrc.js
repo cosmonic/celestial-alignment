@@ -13,7 +13,7 @@ const plugins = [
     if (fs.existsSync(path.resolve(__dirname, defaultPath))) {
         return defaultPath;
     } else {
-        return `./node_modules/@cosmonic/celestial-alignment/node_modules/${pluginName}`;
+        return `./node_modules/virmator/node_modules/${pluginName}`;
     }
 });
 
