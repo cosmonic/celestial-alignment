@@ -3,8 +3,6 @@
 .gitattributes
 .github/
 .gitignore
-.prettierignore
-.prettierrc.js
 .virmator/
 .vscode/
 *.test.d.ts
