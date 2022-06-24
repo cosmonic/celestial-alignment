@@ -1,6 +1,6 @@
 {
     "name": "@cosmonic/celestial-alignment",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "description": "Formatting and code health for Cosmonic.",
     "keywords": [
         "formatting",
@@ -25,8 +25,9 @@
         "align": "./dist/cli.js"
     },
     "scripts": {
+        "build": "virmator compile && chmod +x dist/cli.js",
         "format": "virmator format",
-        "prepublishOnly": "npm run test:full && virmator compile",
+        "prepublishOnly": "npm run test:full && npm run build",
         "spellcheck": "virmator spellcheck",
         "test": "virmator test",
         "test:full": "npm test && npm run spellcheck && virmator format check"

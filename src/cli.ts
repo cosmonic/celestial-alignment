@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import {awaitedForEach, extractErrorMessage} from 'augment-vir';
 import {existsSync} from 'fs';
 import {copyFile} from 'fs/promises';
