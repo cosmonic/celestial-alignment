@@ -1,0 +1,51 @@
+{
+    "name": "@cosmonic/celestial-alignment",
+    "version": "0.0.0",
+    "description": "Formatting and code health for Cosmonic.",
+    "keywords": [
+        "formatting",
+        "Cosmonic",
+        "code health"
+    ],
+    "homepage": "https://github.com/cosmonic/celestial-alignment#readme",
+    "bugs": {
+        "url": "https://github.com/cosmonic/celestial-alignment/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cosmonic/celestial-alignment.git"
+    },
+    "license": "MIT",
+    "author": {
+        "name": "electrovir",
+        "url": "https://github.com/electrovir"
+    },
+    "main": ".prettierrc.js",
+    "bin": {
+        "align": "./dist/cli.js"
+    },
+    "scripts": {
+        "format": "virmator format",
+        "prepublishOnly": "npm run test:full && virmator compile",
+        "spellcheck": "virmator spellcheck",
+        "test": "virmator test",
+        "test:full": "npm test && npm run spellcheck && virmator format check"
+    },
+    "dependencies": {
+        "augment-vir": "2.2.1",
+        "prettier": "2.7.1",
+        "prettier-plugin-jsdoc": "0.3.38",
+        "prettier-plugin-multiline-arrays": "1.0.0",
+        "prettier-plugin-organize-imports": "3.0.0",
+        "prettier-plugin-packagejson": "2.2.18",
+        "prettier-plugin-sort-json": "0.0.2",
+        "prettier-plugin-toml": "0.3.1"
+    },
+    "devDependencies": {
+        "@types/node": "18.0.0",
+        "virmator": "2.0.7"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}
