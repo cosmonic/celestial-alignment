@@ -7,6 +7,7 @@ export const virmatorJestConfig: InitialOptionsTsJest = {
     preset: 'ts-jest',
     testEnvironment: 'node',
     rootDir: cwd,
+    testTimeout: 30000,
     modulePathIgnorePatterns: ['.*.type.test.ts$'],
     roots: [join(cwd, 'src')],
     setupFilesAfterEnv: [join(__dirname, 'jest-setup.ts')],
