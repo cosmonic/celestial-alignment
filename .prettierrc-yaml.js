@@ -8,6 +8,7 @@ const baseConfig = require('./.prettierrc-base.js');
  */
 const prettierConfig = {
     ...baseConfig,
+    tabWidth: 2,
 };
 
 module.exports = prettierConfig;

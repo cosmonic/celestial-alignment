@@ -1,6 +1,6 @@
 {
     "name": "@cosmonic/celestial-alignment",
-    "version": "0.0.5",
+    "version": "1.0.0",
     "description": "Formatting and code health for Cosmonic.",
     "keywords": [
         "formatting",
@@ -26,11 +26,11 @@
     },
     "scripts": {
         "build": "virmator compile && chmod +x dist/cli.js",
-        "format": "virmator format --no-write-config",
+        "format": "prettier \"./**/*.+(ts|tsx|json|html|css|md|js|jsx|yml|yaml)\" --write --config \".prettierrc.js\"",
         "prepublishOnly": "npm run test:full && npm run build",
         "spellcheck": "virmator spellcheck",
         "test": "virmator test",
-        "test:full": "npm test && npm run spellcheck && virmator format check  --no-write-config"
+        "test:full": "npm test && npm run spellcheck && prettier \"./**/*.+(ts|tsx|json|html|css|md|js|jsx|yml|yaml)\" --check --config \".prettierrc.js\""
     },
     "dependencies": {
         "augment-vir": "2.2.1",
