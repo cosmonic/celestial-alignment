@@ -95,7 +95,7 @@ describe(runCli.name, () => {
     it('should check files', async () => {
         const originalFiles = await compareFormatFiles(false);
 
-        expect(async () => await runCli(testRepos.format, 'check')).rejects.toThrowError();
+        await expect(async () => await runCli(testRepos.format, 'check')).rejects.toThrowError();
 
         const afterFiles = await compareFormatFiles(false);
 
@@ -105,7 +105,7 @@ describe(runCli.name, () => {
     it('should format files', async () => {
         const originalFiles = await compareFormatFiles(false);
 
-        expect(async () => await runCli(testRepos.format, 'check')).rejects.toThrowError();
+        await expect(async () => await runCli(testRepos.format, 'check')).rejects.toThrowError();
 
         await runCli(testRepos.format, 'format');
 
@@ -121,7 +121,7 @@ describe(runCli.name, () => {
             await writeFile(filePath, contents);
         });
 
-        expect(async () => await runCli(testRepos.format, 'check')).rejects.toThrowError();
+        await expect(async () => await runCli(testRepos.format, 'check')).rejects.toThrowError();
 
         const revertedFiles = await compareFormatFiles(false);
 

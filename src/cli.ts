@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import {awaitedForEach, extractErrorMessage, getObjectTypedKeys} from 'augment-vir';
-import {runShellCommand} from 'augment-vir/dist/cjs/node-only';
+import {interpolationSafeWindowsPath, runShellCommand} from 'augment-vir/dist/cjs/node-only';
 import {existsSync} from 'fs';
 import {copyFile} from 'fs/promises';
 import {join} from 'path';
@@ -63,7 +63,7 @@ function joinExtensions(extensions: string[]): string {
     return `\"./**/*.+(${extensions.join('|')})\"`;
 }
 
-export async function runCli(cwd: string, command: string, log: boolean = false) {
+export async function runCli(cwd: string, command: string, shouldLog: boolean = false) {
     const errors: Error[] = [];
 
     if (command === 'format' || command === 'check') {
@@ -73,11 +73,15 @@ export async function runCli(cwd: string, command: string, log: boolean = false)
 
         // if we ever need to add more language special cases here (beyond yaml files), this should be generalized into an array
         const formatCommand = `prettier --color ${defaultFiles} ${operation} --config "${configFiles.prettierDefault.copyToPath}" && prettier --color ${yamlFiles} --config ${configFiles.prettierYaml.copyToPath} ${operation}`;
-        const prettierResult = await runShellCommand(formatCommand, {
+        const prettierResult = await runShellCommand(interpolationSafeWindowsPath(formatCommand), {
             cwd,
-            hookUpToConsole: log,
+            hookUpToConsole: shouldLog,
         });
         if (prettierResult.exitCode !== 0) {
+            if (shouldLog) {
+                console.error(prettierResult.error);
+                console.error(prettierResult.stderr);
+            }
             throw new Error(`Prettier call failed.`);
         }
     } else {
