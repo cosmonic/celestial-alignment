@@ -1,4 +1,7 @@
 {
     "import": ".cspell-base.json",
-    "words": ["cosmonic"]
+    "words": [
+        "cosmonic",
+        "loglevel"
+    ]
 }

@@ -2,7 +2,7 @@ import {awaitedForEach} from 'augment-vir';
 import {existsSync} from 'fs';
 import {readdir, readFile, unlink, writeFile} from 'fs/promises';
 import {dirname, join, parse as parsePath} from 'path';
-import {configFiles, getCopyToPath, runCli} from './cli';
+import {CliCommand, configFiles, getCopyToPath, runCli} from './cli';
 import {testRepos} from './test-file-paths';
 
 describe('config files', () => {
@@ -69,7 +69,7 @@ describe(runCli.name, () => {
                 }
             });
 
-            await runCli(testRepos.blankRepo, '');
+            await runCli(testRepos.blankRepo, CliCommand.Align, []);
 
             // verify all files were written
             copyPaths.forEach((copyToPath) => {
@@ -95,7 +95,9 @@ describe(runCli.name, () => {
     it('should check files', async () => {
         const originalFiles = await compareFormatFiles(false);
 
-        await expect(async () => await runCli(testRepos.format, 'check')).rejects.toThrowError();
+        await expect(
+            async () => await runCli(testRepos.format, CliCommand.Check, []),
+        ).rejects.toThrowError();
 
         const afterFiles = await compareFormatFiles(false);
 
@@ -105,11 +107,13 @@ describe(runCli.name, () => {
     it('should format files', async () => {
         const originalFiles = await compareFormatFiles(false);
 
-        await expect(async () => await runCli(testRepos.format, 'check')).rejects.toThrowError();
+        await expect(
+            async () => await runCli(testRepos.format, CliCommand.Check, []),
+        ).rejects.toThrowError();
 
-        await runCli(testRepos.format, 'format');
+        await runCli(testRepos.format, CliCommand.Format, []);
 
-        await runCli(testRepos.format, 'check');
+        await runCli(testRepos.format, CliCommand.Check, []);
 
         const fixedFiles = await compareFormatFiles(true);
 
@@ -121,7 +125,9 @@ describe(runCli.name, () => {
             await writeFile(filePath, contents);
         });
 
-        await expect(async () => await runCli(testRepos.format, 'check')).rejects.toThrowError();
+        await expect(
+            async () => await runCli(testRepos.format, CliCommand.Check, []),
+        ).rejects.toThrowError();
 
         const revertedFiles = await compareFormatFiles(false);
 
