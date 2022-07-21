@@ -110,10 +110,14 @@ export async function runCli(
 
         // if we ever need to add more language special cases here (beyond yaml files), this should be generalized into an array
         const formatCommand = `prettier ${defaultFiles} --config "${configFiles.prettierDefault.copyToPath}" ${prettierFlags} && prettier ${yamlFiles} --config "${configFiles.prettierYaml.copyToPath}" ${prettierFlags}`;
-        await runShellCommand(interpolationSafeWindowsPath(formatCommand), {
+        const prettierResult = await runShellCommand(interpolationSafeWindowsPath(formatCommand), {
             cwd,
             hookUpToConsole: shouldLog,
         });
+        if (prettierResult.exitCode !== 0) {
+            // no need to include anything in the error, hookUpToConsole above will handle all error logging.
+            throw new Error();
+        }
     } else {
         const errors: Error[] = [];
         await awaitedForEach(getObjectTypedKeys(configFiles), async (configFileName) => {
@@ -145,7 +149,6 @@ if (require.main === module) {
     const {command, args} = getCommands();
 
     runCli(process.cwd(), command, args, true).catch((error) => {
-        console.error(error);
         process.exit(1);
     });
 }
